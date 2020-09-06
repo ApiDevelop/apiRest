@@ -25,7 +25,12 @@ public class FilmsController {
     }
 
     @PostMapping("/films")
-    public Films registerOneFilms(@RequestBody Films film ){
+    public Films registerOneFilms(@RequestBody Films film){
         return filmsRepository.save(film);
+    }
+
+    @DeleteMapping("/films")
+    public void deleteOneFilms(@RequestBody Films film) {
+        this.filmsRepository.delete(film);
     }
 }
