@@ -21,12 +21,14 @@ public class FilmsController {
     @GetMapping("/films")
     @ApiOperation(value = "Return a list of films")
     public List<Films> getAllFilms(){
+
         return filmsRepository.findAll();
     }
 
     @GetMapping("/films/{id}")
     @ApiOperation(value = "Return just one film")
     public Films getOneFilms(@PathVariable(value = "id")long id){
+
         return filmsRepository.findById(id);
     }
 
