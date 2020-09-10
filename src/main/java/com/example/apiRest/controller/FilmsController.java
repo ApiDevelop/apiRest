@@ -2,6 +2,7 @@ package com.example.apiRest.controller;
 
 import com.example.apiRest.model.Films;
 import com.example.apiRest.repository.FilmsRepository;
+import com.example.apiRest.sevice.FilmsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,13 @@ public class FilmsController {
     @Autowired
     FilmsRepository filmsRepository;
 
+    @Autowired
+    FilmsService filmsService;
+
     @GetMapping("/films")
     @ApiOperation(value = "Return a list of films")
-    public List<Films> getAllFilms(){
-
-        return filmsRepository.findAll();
+    public List<Films> list(){
+        return filmsService.getAllFilms();
     }
 
     @GetMapping("/films/{id}")
