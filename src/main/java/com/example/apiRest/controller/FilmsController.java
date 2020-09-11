@@ -1,11 +1,13 @@
 package com.example.apiRest.controller;
 
+import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.model.Films;
 import com.example.apiRest.repository.FilmsRepository;
-import com.example.apiRest.sevice.FilmsService;
+import com.example.apiRest.service.FilmsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,8 +39,10 @@ public class FilmsController {
 
     @PostMapping("/films")
     @ApiOperation(value = "Include a new film")
-    public Films registerOneFilms(@RequestBody Films film){
-        return filmsRepository.save(film);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Films registerOneFilms(@RequestBody FilmsDTO filmsDTO){
+
+        return filmsService.saveFilms(filmsDTO);
     }
 
     @DeleteMapping("/films")

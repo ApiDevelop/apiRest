@@ -1,5 +1,6 @@
-package com.example.apiRest.sevice;
+package com.example.apiRest.service;
 
+import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.model.Films;
 import com.example.apiRest.repository.FilmsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,16 @@ public class FilmsService {
     public List<Films> getAllFilms() {
         return filmsRepository.findAll();
 
+    }
+
+    public Films saveFilms(FilmsDTO filmsDTO){
+        Films films = new Films();
+        films.setId(filmsDTO.getId());
+        films.setNome(filmsDTO.getNome());
+        films.setGenero(filmsDTO.getGenero());
+        films.setAno(filmsDTO.getAno());
+
+        return filmsRepository.save(films);
     }
 
 }
