@@ -1,21 +1,21 @@
-# Testes de API com arquitetura em Java
+# API tests with Java architecture
 
-## Introdução
+## Introduction
     Este é um repositório para aprender um pouco mais sobre APIs REST com arqitetura em Java.
     O conhecimento e estudo será em cima da construção de uma API para um serviço de Streaming.
 
-## Lista de Response
-    200 - resposta com retorno
+## Response List
+    200 - response
     201 - Created
-    202 - solicitação realidada com sucesso, mas a ação sera realizada em outro momento 
-    204 - No Content - ñ necessita de retorno
+    202 - request successful - proccess  solicitação realidada com sucesso, mas a ação sera realizada em outro momento 
+    204 - No Content - return not necessary
     400 - Bad Request
     401 - Unauthorized
     403 - Forbidden
     404 - Not Find
     422 - Unprocessable Entity
 
-## Estrutura API - Ida
+## API Structure - Post
     Requisição => Controller > Services > Repository > Entity
 
 ### Controller
@@ -34,5 +34,5 @@
 ### Entity
     Representa uma tabela no DB
 
-## Estrutura API - Volta
+## API Structure - Response
     Return => Reository > Service > Controller
