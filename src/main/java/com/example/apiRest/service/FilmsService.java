@@ -28,4 +28,15 @@ public class FilmsService {
         return filmsRepository.save(films);
     }
 
+    public Films getFilmByID(long id) {
+        return filmsRepository.findById(id);
+    }
+
+    public void deleteFilm(Films film) {
+        filmsRepository.delete(film);
+    }
+
+    public Films updateDataFilm(Films film) {
+        return filmsRepository.save(film);
+    }
 }

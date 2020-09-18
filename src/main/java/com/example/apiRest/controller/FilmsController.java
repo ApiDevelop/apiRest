@@ -2,7 +2,6 @@ package com.example.apiRest.controller;
 
 import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.model.Films;
-import com.example.apiRest.repository.FilmsRepository;
 import com.example.apiRest.service.FilmsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,14 +18,12 @@ import java.util.List;
 public class FilmsController {
 
     @Autowired
-    FilmsRepository filmsRepository;
-
-    @Autowired
     FilmsService filmsService;
 
     @GetMapping("/films")
     @ApiOperation(value = "Return a list of films")
     public List<Films> list(){
+
         return filmsService.getAllFilms();
     }
 
@@ -34,7 +31,7 @@ public class FilmsController {
     @ApiOperation(value = "Return just one film")
     public Films getOneFilms(@PathVariable(value = "id")long id){
 
-        return filmsRepository.findById(id);
+        return filmsService.getFilmByID(id);
     }
 
     @PostMapping("/films")
@@ -48,15 +45,15 @@ public class FilmsController {
     @DeleteMapping("/films")
     @ApiOperation(value = "Delete one film")
     public void deleteOneFilms(@RequestBody Films film) {
-        this.filmsRepository.delete(film);
+
+        this.filmsService.deleteFilm(film);
     }
 
     @PutMapping("/films")
     @ApiOperation(value = "Update data of one film")
     public Films updateFilm(@RequestBody Films film) {
-        return filmsRepository.save(film);
+
+        return filmsService.updateDataFilm(film);
     }
-
-
 
 }
