@@ -10,6 +10,8 @@ import java.util.List;
 @Service
 public class FilmsService {
 
+    Films films = new Films();
+
     @Autowired
     private FilmsRepository filmsRepository;
 
@@ -18,14 +20,16 @@ public class FilmsService {
 
     }
 
-    public Films saveFilms(FilmsDTO filmsDTO){
-        Films films = new Films();
+    public Films createOneFilm(FilmsDTO filmsDTO){
+        return filmsRepository.save(converterFilmsInFilmsDTO(filmsDTO));
+    }
+
+    public Films converterFilmsInFilmsDTO(FilmsDTO filmsDTO) {
         films.setId(filmsDTO.getId());
         films.setNome(filmsDTO.getNome());
         films.setGenero(filmsDTO.getGenero());
         films.setAno(filmsDTO.getAno());
-
-        return filmsRepository.save(films);
+        return films;
     }
 
     public Films getFilmByID(long id) {

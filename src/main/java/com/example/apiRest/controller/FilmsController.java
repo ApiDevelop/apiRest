@@ -22,6 +22,7 @@ public class FilmsController {
 
     @GetMapping("/films")
     @ApiOperation(value = "Return a list of films")
+    @ResponseStatus(HttpStatus.OK)
     public List<Films> list(){
 
         return filmsService.getAllFilms();
@@ -29,6 +30,7 @@ public class FilmsController {
 
     @GetMapping("/films/{id}")
     @ApiOperation(value = "Return just one film")
+    @ResponseStatus(HttpStatus.OK)
     public Films getOneFilms(@PathVariable(value = "id")long id){
 
         return filmsService.getFilmByID(id);
@@ -39,11 +41,12 @@ public class FilmsController {
     @ResponseStatus(HttpStatus.CREATED)
     public Films registerOneFilms(@RequestBody FilmsDTO filmsDTO){
 
-        return filmsService.saveFilms(filmsDTO);
+        return filmsService.createOneFilm(filmsDTO);
     }
 
     @DeleteMapping("/films")
     @ApiOperation(value = "Delete one film")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOneFilms(@RequestBody Films film) {
 
         this.filmsService.deleteFilm(film);
@@ -51,6 +54,7 @@ public class FilmsController {
 
     @PutMapping("/films")
     @ApiOperation(value = "Update data of one film")
+    @ResponseStatus(HttpStatus.CREATED)
     public Films updateFilm(@RequestBody Films film) {
 
         return filmsService.updateDataFilm(film);
