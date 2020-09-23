@@ -2,13 +2,18 @@ package com.example.apiRest.controller;
 
 import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.model.Films;
+import com.example.apiRest.response.Response;
 import com.example.apiRest.service.FilmsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -39,9 +44,22 @@ public class FilmsController {
     @PostMapping("/films")
     @ApiOperation(value = "Include a new film")
     @ResponseStatus(HttpStatus.CREATED)
-    public Films registerOneFilms(@RequestBody FilmsDTO filmsDTO){
+    public ResponseEntity<Response<Films>> registerOneFilms(@RequestBody FilmsDTO filmsDTO, BindingResult result){
 
-        return filmsService.createOneFilm(filmsDTO);
+        Response <Films>response = new Response <Films>();
+
+        if (result.hasErrors()) {
+            result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        Films filmsSave = filmsService.createOneFilm(filmsDTO);
+        response.setData(filmsSave);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(filmsSave.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(response);
+
     }
 
     @DeleteMapping("/films")

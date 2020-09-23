@@ -6,6 +6,7 @@ import com.example.apiRest.repository.FilmsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import static convert.ConvertFilms.converterFilmsInFilmsDTO;
 
 @Service
 public class FilmsService {
@@ -21,16 +22,11 @@ public class FilmsService {
     }
 
     public Films createOneFilm(FilmsDTO filmsDTO){
+
         return filmsRepository.save(converterFilmsInFilmsDTO(filmsDTO));
     }
 
-    public Films converterFilmsInFilmsDTO(FilmsDTO filmsDTO) {
-        films.setId(filmsDTO.getId());
-        films.setNome(filmsDTO.getNome());
-        films.setGenero(filmsDTO.getGenero());
-        films.setAno(filmsDTO.getAno());
-        return films;
-    }
+
 
     public Films getFilmByID(long id) {
         return filmsRepository.findById(id);
