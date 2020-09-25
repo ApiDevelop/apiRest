@@ -1,12 +1,14 @@
 package com.example.apiRest.service;
 
 import com.example.apiRest.dto.FilmsDTO;
+import com.example.apiRest.dto.FilmsDTOResponse;
 import com.example.apiRest.model.Films;
 import com.example.apiRest.repository.FilmsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import static convert.ConvertFilms.converterFilmsInFilmsDTO;
+import static convert.ConvertFilms.converterFilmsDTOInFilms;
+import static convert.ConvertFilms.converterFilmsInfilmsDTOResponse;
 
 @Service
 public class FilmsService {
@@ -21,9 +23,10 @@ public class FilmsService {
 
     }
 
-    public Films createOneFilm(FilmsDTO filmsDTO){
+    public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO){
 
-        return filmsRepository.save(converterFilmsInFilmsDTO(filmsDTO));
+        Films films = filmsRepository.save(converterFilmsDTOInFilms(filmsDTO));
+        return converterFilmsInfilmsDTOResponse(films);
     }
 
 

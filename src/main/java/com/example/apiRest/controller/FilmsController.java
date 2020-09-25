@@ -1,6 +1,7 @@
 package com.example.apiRest.controller;
 
 import com.example.apiRest.dto.FilmsDTO;
+import com.example.apiRest.dto.FilmsDTOResponse;
 import com.example.apiRest.model.Films;
 import com.example.apiRest.response.Response;
 import com.example.apiRest.service.FilmsService;
@@ -44,18 +45,19 @@ public class FilmsController {
     @PostMapping("/films")
     @ApiOperation(value = "Include a new film")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<Films>> registerOneFilms(@RequestBody FilmsDTO filmsDTO, BindingResult result){
+    public ResponseEntity<Response<FilmsDTOResponse>> registerOneFilms(@RequestBody FilmsDTO filmsDTO, BindingResult result){
 
-        Response <Films>response = new Response <Films>();
+        Response <FilmsDTOResponse> response = new Response <FilmsDTOResponse>();
+        FilmsDTOResponse filmsDTOResponse;
 
         if (result.hasErrors()) {
             result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
             return ResponseEntity.badRequest().body(response);
         }
 
-        Films filmsSave = filmsService.createOneFilm(filmsDTO);
-        response.setData(filmsSave);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(filmsSave.getId())
+        filmsDTOResponse = filmsService.createOneFilm(filmsDTO);
+        response.setData(filmsDTOResponse);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(filmsDTOResponse.getId())
                 .toUri();
 
         return ResponseEntity.created(location).body(response);
