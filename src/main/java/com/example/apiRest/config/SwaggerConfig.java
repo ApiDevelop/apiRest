@@ -22,8 +22,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.apiRest"))
                 .paths(regex("/*.*"))
-                .build()
-                .apiInfo(metaInfo());
+                .build();
+                //.apiInfo(metaInfo());
     }
 
     private ApiInfo metaInfo() {

@@ -15,10 +15,8 @@ public class FilmsDTOResponse implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull(message = "Field name can not be null")
     private String nome;
     private String genero;
-
     @Column(name = "ano_de_lancamento")
     private int ano;
 

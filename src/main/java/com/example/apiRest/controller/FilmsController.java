@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -44,8 +45,7 @@ public class FilmsController {
 
     @PostMapping("/films")
     @ApiOperation(value = "Include a new film")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<FilmsDTOResponse>> registerOneFilms(@RequestBody FilmsDTO filmsDTO, BindingResult result){
+    public ResponseEntity<Response<FilmsDTOResponse>> registerOneFilms(@RequestBody @Valid FilmsDTO filmsDTO, BindingResult result){
 
         Response <FilmsDTOResponse> response = new Response <FilmsDTOResponse>();
         FilmsDTOResponse filmsDTOResponse;
@@ -53,6 +53,7 @@ public class FilmsController {
         if (result.hasErrors()) {
             result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
             return ResponseEntity.badRequest().body(response);
+
         }
 
         filmsDTOResponse = filmsService.createOneFilm(filmsDTO);
