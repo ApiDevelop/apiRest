@@ -1,5 +1,6 @@
 package com.example.apiRest.controller;
 
+import com.example.apiRest.dto.DetailsFilmsDTO;
 import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.dto.FilmsDTOResponse;
 import com.example.apiRest.model.Films;
@@ -27,10 +28,20 @@ public class FilmsController {
     @Autowired
     FilmsService filmsService;
 
+
     @GetMapping("/films")
     @ApiOperation(value = "Return a list of films")
     @ResponseStatus(HttpStatus.OK)
-    public List<Films> list(){
+    public List<DetailsFilmsDTO> list(){
+
+        return filmsService.getAllFilmsTest();
+    }
+
+
+    @GetMapping("/films/oldget")
+    @ApiOperation(value = "Return a list of films")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Films> listold(){
 
         return filmsService.getAllFilms();
     }
