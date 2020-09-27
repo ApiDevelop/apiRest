@@ -1,5 +1,7 @@
 package com.example.apiRest.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +17,10 @@ public class FilmsDTO implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @ApiModelProperty(value = "Field is string")
+    //@NotNull(message = "Field name can not be null")
+    @NotBlank(message = "Field name can not be blank")
     private String nome;
     private String genero;
 
@@ -29,7 +35,7 @@ public class FilmsDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    @NotNull(message = "Field name can not be null")
+
     public String getNome() {
         return nome;
     }

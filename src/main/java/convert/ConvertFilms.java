@@ -13,9 +13,9 @@ public class ConvertFilms {
         Films films = new Films();
 
         films.setId(filmsDTO.getId());
-        films.setNome(filmsDTO.getNome());
-        films.setGenero(filmsDTO.getGenero());
-        films.setAno(filmsDTO.getAno());
+        films.setName(filmsDTO.getNome());
+        films.setGenre(filmsDTO.getGenero());
+        films.setYear(filmsDTO.getAno());
 
         return films;
     }
@@ -25,9 +25,9 @@ public class ConvertFilms {
         FilmsDTOResponse filmsDTOResponse = new FilmsDTOResponse();
 
         filmsDTOResponse.setId(films.getId());
-        filmsDTOResponse.setNome(films.getNome());
-        filmsDTOResponse.setGenero(films.getGenero());
-        filmsDTOResponse.setAno(films.getAno());
+        filmsDTOResponse.setNome(films.getName());
+        filmsDTOResponse.setGenero(films.getGenre());
+        filmsDTOResponse.setAno(films.getYear());
 
         return filmsDTOResponse;
 
