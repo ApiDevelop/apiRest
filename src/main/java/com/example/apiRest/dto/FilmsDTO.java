@@ -17,11 +17,11 @@ public class FilmsDTO implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @ApiModelProperty(value = "Field is string")
-    //@NotNull(message = "Field name can not be null")
     @NotBlank(message = "Field name can not be blank")
     private String nome;
+
+    @NotNull
     private String genero;
 
     @Column(name = "ano_de_lancamento")

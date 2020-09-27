@@ -19,10 +19,6 @@ public class Films implements Serializable {
     @Column(name = "release_year")
     private int year;
 
-//    public Films() {
-//        this.date = LocalDateTime.now();
-//    }
-
     public LocalDateTime getDate() {
         return date;
     }
