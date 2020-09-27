@@ -1,6 +1,6 @@
 package com.example.apiRest.controller;
 
-import com.example.apiRest.dto.DetailsFilmsDTO;
+import com.example.apiRest.dto.DetailsFilmsDTOResponse;
 import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.dto.FilmsDTOResponse;
 import com.example.apiRest.model.Films;
@@ -28,21 +28,17 @@ public class FilmsController {
     @Autowired
     FilmsService filmsService;
 
-
     @GetMapping("/films")
     @ApiOperation(value = "Return a list of films")
     @ResponseStatus(HttpStatus.OK)
-    public List<DetailsFilmsDTO> list(){
-
+    public List<DetailsFilmsDTOResponse> list(){
         return filmsService.getAllFilms();
     }
-
 
     @GetMapping("/films/{id}")
     @ApiOperation(value = "Return just one film")
     @ResponseStatus(HttpStatus.OK)
-    public Films getOneFilms(@PathVariable(value = "id")long id){
-
+    public DetailsFilmsDTOResponse getOneFilms(@PathVariable(value = "id")long id){
         return filmsService.getFilmByID(id);
     }
 
@@ -72,7 +68,6 @@ public class FilmsController {
     @ApiOperation(value = "Delete one film")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOneFilms(@RequestBody Films film) {
-
         this.filmsService.deleteFilm(film);
     }
 
@@ -80,8 +75,6 @@ public class FilmsController {
     @ApiOperation(value = "Update data of one film")
     @ResponseStatus(HttpStatus.CREATED)
     public Films updateFilm(@RequestBody Films film) {
-
         return filmsService.updateDataFilm(film);
     }
-
 }

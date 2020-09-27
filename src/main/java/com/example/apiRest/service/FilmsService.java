@@ -1,6 +1,6 @@
 package com.example.apiRest.service;
 
-import com.example.apiRest.dto.DetailsFilmsDTO;
+import com.example.apiRest.dto.DetailsFilmsDTOResponse;
 import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.dto.FilmsDTOResponse;
 import com.example.apiRest.model.Films;
@@ -8,38 +8,24 @@ import com.example.apiRest.repository.FilmsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static convert.ConvertFilms.converterFilmsDTOInFilms;
-import static convert.ConvertFilms.converterFilmsInfilmsDTOResponse;
+import static convert.ConvertFilms.*;
 
 @Service
 public class FilmsService {
 
-    Films films = new Films();
-
     @Autowired
     private FilmsRepository filmsRepository;
 
-    public List<DetailsFilmsDTO> getAllFilms() {
-        List<Films> filmsGotfromDB = filmsRepository.findAll();
-        return converterListOfFilmsInListOfDetailsFilmsDTO(filmsGotfromDB);
+    public List<DetailsFilmsDTOResponse> getAllFilms() {
+        return converterListOfFilmsInOneListOfFilmsDTO(filmsRepository.findAll());
     }
 
-    public static List<DetailsFilmsDTO> converterListOfFilmsInListOfDetailsFilmsDTO(List<Films> films) {
-        return films.stream().map(DetailsFilmsDTO::new).collect(Collectors.toList());
+    public DetailsFilmsDTOResponse getFilmByID(long id) {
+        return converterFilmInFilmDetails(filmsRepository.findById(id));
     }
 
     public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO){
-
-        Films films = filmsRepository.save(converterFilmsDTOInFilms(filmsDTO));
-        return converterFilmsInfilmsDTOResponse(films);
-    }
-
-
-
-    public Films getFilmByID(long id) {
-        return filmsRepository.findById(id);
+        return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));
     }
 
     public void deleteFilm(Films film) {
