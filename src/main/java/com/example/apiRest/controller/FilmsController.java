@@ -34,17 +34,9 @@ public class FilmsController {
     @ResponseStatus(HttpStatus.OK)
     public List<DetailsFilmsDTO> list(){
 
-        return filmsService.getAllFilmsTest();
-    }
-
-
-    @GetMapping("/films/oldget")
-    @ApiOperation(value = "Return a list of films")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Films> listold(){
-
         return filmsService.getAllFilms();
     }
+
 
     @GetMapping("/films/{id}")
     @ApiOperation(value = "Return just one film")

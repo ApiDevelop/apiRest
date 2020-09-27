@@ -21,12 +21,7 @@ public class FilmsService {
     @Autowired
     private FilmsRepository filmsRepository;
 
-    public List<Films> getAllFilms() {
-        return filmsRepository.findAll();
-
-    }
-
-    public List<DetailsFilmsDTO> getAllFilmsTest() {
+    public List<DetailsFilmsDTO> getAllFilms() {
         List<Films> filmsGotfromDB = filmsRepository.findAll();
         return converterListOfFilmsInListOfDetailsFilmsDTO(filmsGotfromDB);
     }
