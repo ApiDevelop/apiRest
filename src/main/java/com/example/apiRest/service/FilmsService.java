@@ -35,4 +35,8 @@ public class FilmsService {
     public Films updateDataFilm(Films film) {
         return filmsRepository.save(film);
     }
+
+    public List<DetailsFilmsDTOResponse> getFilmByname(String nameFilm) {
+        return converterListOfFilmsInOneListOfFilmsDTO(filmsRepository.findByName(nameFilm));
+    }
 }
