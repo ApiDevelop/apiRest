@@ -1,6 +1,5 @@
 package com.example.apiRest.response;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
