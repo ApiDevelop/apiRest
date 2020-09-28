@@ -2,18 +2,21 @@ package com.example.apiRest.dto;
 
 import com.example.apiRest.model.Films;
 
-public class DetailsFilmsDTO {
+public class DetailsFilmsDTOResponse {
 
     private Long id;
     private String nome;
     private String genero;
     private int ano;
 
-    public DetailsFilmsDTO(Films film) {
+    public DetailsFilmsDTOResponse(Films film) {
         this.id = film.getId();
         this.nome = film.getName();
         this.genero = film.getGenre();
         this.ano = film.getYear();
+    }
+
+    public DetailsFilmsDTOResponse() {
     }
 
 

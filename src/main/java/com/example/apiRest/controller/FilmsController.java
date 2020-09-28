@@ -1,14 +1,16 @@
 package com.example.apiRest.controller;
 
-import com.example.apiRest.dto.DetailsFilmsDTO;
+import com.example.apiRest.dto.DetailsFilmsDTOResponse;
 import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.dto.FilmsDTOResponse;
 import com.example.apiRest.model.Films;
+import com.example.apiRest.repository.FilmsRepository;
 import com.example.apiRest.response.Response;
 import com.example.apiRest.service.FilmsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+
+import static convert.ConvertFilms.converterListOfFilmsInOneListOfFilmsDTO;
 
 @RestController
 @RequestMapping(value = "/api/v1")
@@ -30,21 +34,25 @@ public class FilmsController {
     @Autowired
     FilmsService filmsService;
 
+    @Autowired
+    private FilmsRepository filmsRepository;
+
 
     @GetMapping("/films")
     @ApiOperation(value = "Return a list of films")
     @ResponseStatus(HttpStatus.OK)
-    public List<DetailsFilmsDTO> list(){
-
-        return filmsService.getAllFilms();
+    public List<DetailsFilmsDTOResponse> list(String name) {
+        if (name == null) {
+            return filmsService.getAllFilms();
+        } else {
+            return filmsService.getFilmByname(name);
+        }
     }
-
 
     @GetMapping("/films/{id}")
     @ApiOperation(value = "Return just one film")
     @ResponseStatus(HttpStatus.OK)
-    public Films getOneFilms(@PathVariable(value = "id")long id){
-
+    public DetailsFilmsDTOResponse getOneFilms(@PathVariable(value = "id")long id){
         return filmsService.getFilmByID(id);
     }
 
@@ -74,7 +82,6 @@ public class FilmsController {
     @ApiOperation(value = "Delete one film")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOneFilms(@RequestBody Films film) {
-
         this.filmsService.deleteFilm(film);
     }
 
@@ -82,8 +89,6 @@ public class FilmsController {
     @ApiOperation(value = "Update data of one film")
     @ResponseStatus(HttpStatus.CREATED)
     public Films updateFilm(@RequestBody Films film) {
-
         return filmsService.updateDataFilm(film);
     }
-
 }
