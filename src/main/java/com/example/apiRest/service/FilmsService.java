@@ -19,7 +19,19 @@ public class FilmsService {
     private FilmsRepository filmsRepository;
 
     public List<DetailsFilmsDTOResponse> getAllFilms() {
-        return converterListOfFilmsInOneListOfFilmsDTO(filmsRepository.findAll());
+        List<Films> films = filmsRepository.findAll();
+        if (films.isEmpty()) {
+            throw new FilmsDoesNotExistException("The list is empty. There are no films registered");
+        }
+        return converterListOfFilmsInOneListOfFilmsDTO(films);
+    }
+
+    public List<DetailsFilmsDTOResponse> getFilmByName(String nameFilm) {
+        List<Films> films = (filmsRepository.findByName(nameFilm));
+        if (films.isEmpty()) {
+            throw new FilmsDoesNotExistException("There are no films that meet this search");
+        }
+        return converterListOfFilmsInOneListOfFilmsDTO(films);
     }
 
     public DetailsFilmsDTOResponse getFilmByID(long id) {
@@ -38,11 +50,4 @@ public class FilmsService {
         return filmsRepository.save(film);
     }
 
-    public List<DetailsFilmsDTOResponse> getFilmByName(String nameFilm) {
-        List<Films> films = (filmsRepository.findByName(nameFilm));
-        if (films.isEmpty()) {
-            throw new FilmsDoesNotExistException("There are no films that meet this search");
-        }
-        return converterListOfFilmsInOneListOfFilmsDTO(films);
-    }
 }
