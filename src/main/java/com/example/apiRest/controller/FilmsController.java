@@ -32,11 +32,6 @@ public class FilmsController {
     @GetMapping("/films")
     @ApiOperation(value = "Return a list of films")
     public ResponseEntity<Response<List<DetailsFilmsDTOResponse>>> list(@RequestParam(required = false) String name) {
-//        if (name == null) {
-//            return filmsService.getAllFilms();
-//        } else {
-//            return filmsService.getFilmByname(name);
-//        }
 
         List<DetailsFilmsDTOResponse> detailsFilms;
         Response<List<DetailsFilmsDTOResponse>> response = new Response<>();
@@ -67,7 +62,6 @@ public class FilmsController {
         if (result.hasErrors()) {
             result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
             return ResponseEntity.badRequest().body(response);
-
         }
 
         filmsDTOResponse = filmsService.createOneFilm(filmsDTO);

@@ -17,4 +17,11 @@ public class FilmsAdvice {
         return exception.getMessage();
     }
 
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(value = NullPointerException.class)
+    public String idNotRegistered(NullPointerException exception) {
+        return exception.getMessage();
+    }
+
 }

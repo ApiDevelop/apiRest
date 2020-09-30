@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import static convert.ConvertFilms.*;
-import static convert.ConvertFilms.converterListOfFilmsInOneListOfFilmsDTO;
+
 
 @Service
 public class FilmsService {
@@ -18,8 +18,10 @@ public class FilmsService {
     @Autowired
     private FilmsRepository filmsRepository;
 
+    private List<Films> films;
+
     public List<DetailsFilmsDTOResponse> getAllFilms() {
-        List<Films> films = filmsRepository.findAll();
+        films = filmsRepository.findAll();
         if (films.isEmpty()) {
             throw new FilmsDoesNotExistException("The list is empty. There are no films registered");
         }
@@ -27,7 +29,7 @@ public class FilmsService {
     }
 
     public List<DetailsFilmsDTOResponse> getFilmByName(String nameFilm) {
-        List<Films> films = (filmsRepository.findByName(nameFilm));
+        films = filmsRepository.findByName(nameFilm);
         if (films.isEmpty()) {
             throw new FilmsDoesNotExistException("There are no films that meet this search");
         }
@@ -35,7 +37,11 @@ public class FilmsService {
     }
 
     public DetailsFilmsDTOResponse getFilmByID(long id) {
-        return converterFilmInFilmDetails(filmsRepository.findById(id));
+        Films film = filmsRepository.findById(id);
+        if (film == null){
+            throw new NullPointerException("There are no films registered with this ID");
+        }
+        return converterFilmInFilmDetails(film);
     }
 
     public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO){
