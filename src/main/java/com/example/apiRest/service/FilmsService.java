@@ -5,10 +5,12 @@ import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.dto.FilmsDTOResponse;
 import com.example.apiRest.model.Films;
 import com.example.apiRest.repository.FilmsRepository;
+import com.example.apiRest.service.exceptions.FilmsDoesNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import static convert.ConvertFilms.*;
+
 
 @Service
 public class FilmsService {
@@ -16,12 +18,30 @@ public class FilmsService {
     @Autowired
     private FilmsRepository filmsRepository;
 
+    private List<Films> films;
+
     public List<DetailsFilmsDTOResponse> getAllFilms() {
-        return converterListOfFilmsInOneListOfFilmsDTO(filmsRepository.findAll());
+        films = filmsRepository.findAll();
+        if (films.isEmpty()) {
+            throw new FilmsDoesNotExistException("The list is empty. There are no films registered");
+        }
+        return converterListOfFilmsInOneListOfFilmsDTO(films);
+    }
+
+    public List<DetailsFilmsDTOResponse> getFilmByName(String nameFilm) {
+        films = filmsRepository.findByName(nameFilm);
+        if (films.isEmpty()) {
+            throw new FilmsDoesNotExistException("There are no films that meet this search");
+        }
+        return converterListOfFilmsInOneListOfFilmsDTO(films);
     }
 
     public DetailsFilmsDTOResponse getFilmByID(long id) {
-        return converterFilmInFilmDetails(filmsRepository.findById(id));
+        Films film = filmsRepository.findById(id);
+        if (film == null){
+            throw new NullPointerException("There are no films registered with this ID");
+        }
+        return converterFilmInFilmDetails(film);
     }
 
     public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO){
@@ -36,7 +56,4 @@ public class FilmsService {
         return filmsRepository.save(film);
     }
 
-    public List<DetailsFilmsDTOResponse> getFilmByname(String nameFilm) {
-        return converterListOfFilmsInOneListOfFilmsDTO(filmsRepository.findByName(nameFilm));
-    }
 }

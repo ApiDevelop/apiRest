@@ -31,13 +31,18 @@ public class FilmsController {
 
     @GetMapping("/films")
     @ApiOperation(value = "Return a list of films")
-    @ResponseStatus(HttpStatus.OK)
-    public List<DetailsFilmsDTOResponse> list(String name) {
+    public ResponseEntity<Response<List<DetailsFilmsDTOResponse>>> list(@RequestParam(required = false) String name) {
+
+        List<DetailsFilmsDTOResponse> detailsFilms;
+        Response<List<DetailsFilmsDTOResponse>> response = new Response<>();
+
         if (name == null) {
-            return filmsService.getAllFilms();
+            detailsFilms = filmsService.getAllFilms();
         } else {
-            return filmsService.getFilmByname(name);
+            detailsFilms = filmsService.getFilmByName(name);
         }
+        response.setData(detailsFilms);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/films/{id}")
@@ -51,13 +56,12 @@ public class FilmsController {
     @ApiOperation(value = "Include a new film")
     public ResponseEntity<Response<FilmsDTOResponse>> registerOneFilms(@RequestBody @Valid FilmsDTO filmsDTO, BindingResult result){
 
-        Response <FilmsDTOResponse> response = new Response <FilmsDTOResponse>();
+        Response <FilmsDTOResponse> response = new Response<>();
         FilmsDTOResponse filmsDTOResponse;
 
         if (result.hasErrors()) {
             result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
             return ResponseEntity.badRequest().body(response);
-
         }
 
         filmsDTOResponse = filmsService.createOneFilm(filmsDTO);
