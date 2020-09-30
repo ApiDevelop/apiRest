@@ -5,10 +5,12 @@ import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.dto.FilmsDTOResponse;
 import com.example.apiRest.model.Films;
 import com.example.apiRest.repository.FilmsRepository;
+import com.example.apiRest.service.exceptions.FilmsDoesNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import static convert.ConvertFilms.*;
+import static convert.ConvertFilms.converterListOfFilmsInOneListOfFilmsDTO;
 
 @Service
 public class FilmsService {
@@ -36,7 +38,11 @@ public class FilmsService {
         return filmsRepository.save(film);
     }
 
-    public List<DetailsFilmsDTOResponse> getFilmByname(String nameFilm) {
-        return converterListOfFilmsInOneListOfFilmsDTO(filmsRepository.findByName(nameFilm));
+    public List<DetailsFilmsDTOResponse> getFilmByName(String nameFilm) {
+        List<Films> films = (filmsRepository.findByName(nameFilm));
+        if (films.isEmpty()) {
+            throw new FilmsDoesNotExistException("There are no films that meet this search");
+        }
+        return converterListOfFilmsInOneListOfFilmsDTO(films);
     }
 }

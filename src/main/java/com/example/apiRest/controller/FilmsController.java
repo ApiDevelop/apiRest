@@ -31,8 +31,7 @@ public class FilmsController {
 
     @GetMapping("/films")
     @ApiOperation(value = "Return a list of films")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Response<List<DetailsFilmsDTOResponse>>> list(String name) {
+    public ResponseEntity<Response<List<DetailsFilmsDTOResponse>>> list(@RequestParam(required = false) String name) {
 //        if (name == null) {
 //            return filmsService.getAllFilms();
 //        } else {
@@ -45,7 +44,7 @@ public class FilmsController {
         if (name == null) {
             detailsFilms = filmsService.getAllFilms();
         } else {
-            detailsFilms = filmsService.getFilmByname(name);
+            detailsFilms = filmsService.getFilmByName(name);
         }
         response.setData(detailsFilms);
         return ResponseEntity.status(HttpStatus.OK).body(response);
