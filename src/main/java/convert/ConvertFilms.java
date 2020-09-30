@@ -9,6 +9,9 @@ import java.util.stream.Collectors;
 
 public class ConvertFilms {
 
+    private ConvertFilms() {
+    }
+
     public static Films converterFilmsDTOInFilms(FilmsDTO filmsDTO) {
         Films films = new Films();
         films.setId(filmsDTO.getId());
