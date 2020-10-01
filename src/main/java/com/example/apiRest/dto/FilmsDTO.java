@@ -70,5 +70,10 @@ public class FilmsDTO implements Serializable {
     public void setAno(int ano) {
         this.ano = ano;
     }
+    @Override
+    public String toString() {
+        return "FilmsDTO [id=" + ", nome=" + nome+ ", genre=" + genero
+                + ", year=" + ano +  "]";
+    }
 
 }
