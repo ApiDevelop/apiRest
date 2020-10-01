@@ -44,9 +44,20 @@ public class FilmsService {
         return converterFilmInFilmDetails(film);
     }
 
-    public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO){
+    public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO) {
+        List<Films> films = filmsRepository.findByName(filmsDTO.getNome());
+        for (Films film : films) {
+            if (!film.getName().isEmpty()) {
+                throw new NullPointerException("There");
+            } else {
+                filmsDTO.getNome().equalsIgnoreCase(film.getName());
+            }
+            //System.out.println(film.getName());
+        }
         return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));
+
     }
+
 
     public void deleteFilm(Films film) {
         filmsRepository.delete(film);
