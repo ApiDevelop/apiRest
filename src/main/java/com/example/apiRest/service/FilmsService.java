@@ -47,12 +47,9 @@ public class FilmsService {
     public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO) {
         List<Films> films = filmsRepository.findByName(filmsDTO.getNome());
         for (Films film : films) {
-            if (!film.getName().isEmpty()) {
+            if (filmsDTO.getNome().equalsIgnoreCase(film.getName())) {
                 throw new NullPointerException("There");
-            } else {
-                filmsDTO.getNome().equalsIgnoreCase(film.getName());
             }
-            //System.out.println(film.getName());
         }
         return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));
 
