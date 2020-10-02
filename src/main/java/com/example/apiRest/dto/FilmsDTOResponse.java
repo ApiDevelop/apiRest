@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import javax.validation.constraints.NotNull;
 
 
 public class FilmsDTOResponse implements Serializable {
@@ -15,10 +14,10 @@ public class FilmsDTOResponse implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String genero;
+    private String name;
+    private String genre;
     @Column(name = "ano_de_lancamento")
-    private int ano;
+    private int year;
 
 
     public Long getId() {
@@ -31,33 +30,33 @@ public class FilmsDTOResponse implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
+    public String getName() {
 
-        return nome;
+        return name;
     }
 
-    public void setNome(String nome) {
+    public void setName(String name) {
 
-        this.nome = nome;
+        this.name = name;
     }
 
-    public String getGenero() {
+    public String getGenre() {
 
-        return genero;
+        return genre;
     }
 
-    public void setGenero(String genero) {
+    public void setGenre(String genre) {
 
-        this.genero = genero;
+        this.genre = genre;
     }
 
-    public int getAno() {
+    public int getYear() {
 
-        return ano;
+        return year;
     }
 
-    public void setAno(int ano) {
+    public void setYear(int year) {
 
-        this.ano = ano;
+        this.year = year;
     }
 }

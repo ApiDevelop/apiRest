@@ -6,8 +6,10 @@ import com.example.apiRest.dto.FilmsDTOResponse;
 import com.example.apiRest.model.Films;
 import com.example.apiRest.repository.FilmsRepository;
 import com.example.apiRest.service.exceptions.FilmsDoesNotExistException;
+import com.example.apiRest.service.exceptions.FilmsRegisteredException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import static convert.ConvertFilms.*;
 
@@ -45,10 +47,11 @@ public class FilmsService {
     }
 
     public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO) {
-        List<Films> films = filmsRepository.findByName(filmsDTO.getNome());
+        List<Films> films = filmsRepository.findByName(filmsDTO.getName());
         for (Films film : films) {
-            if (filmsDTO.getNome().equalsIgnoreCase(film.getName())) {
-                throw new NullPointerException("There");
+            if (filmsDTO.getName().equalsIgnoreCase(film.getName())) {
+
+               throw new FilmsRegisteredException("This film already registered");
             }
         }
         return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));

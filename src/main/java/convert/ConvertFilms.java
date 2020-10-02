@@ -15,18 +15,18 @@ public class ConvertFilms {
     public static Films converterFilmsDTOInFilms(FilmsDTO filmsDTO) {
         Films films = new Films();
         films.setId(filmsDTO.getId());
-        films.setName(filmsDTO.getNome());
-        films.setGenre(filmsDTO.getGenero());
-        films.setYear(filmsDTO.getAno());
+        films.setName(filmsDTO.getName());
+        films.setGenre(filmsDTO.getGenre());
+        films.setYear(filmsDTO.getYear());
         return films;
     }
 
     public static FilmsDTOResponse converterFilmsInfilmsDTOResponse(Films films){
         FilmsDTOResponse filmsDTOResponse = new FilmsDTOResponse();
         filmsDTOResponse.setId(films.getId());
-        filmsDTOResponse.setNome(films.getName());
-        filmsDTOResponse.setGenero(films.getGenre());
-        filmsDTOResponse.setAno(films.getYear());
+        filmsDTOResponse.setName(films.getName());
+        filmsDTOResponse.setGenre(films.getGenre());
+        filmsDTOResponse.setYear(films.getYear());
         return filmsDTOResponse;
     }
 
@@ -38,8 +38,8 @@ public class ConvertFilms {
         DetailsFilmsDTOResponse detailsFilmsDTOResponse = new DetailsFilmsDTOResponse();
         detailsFilmsDTOResponse.setId(film.getId());
         detailsFilmsDTOResponse.setAno(film.getYear());
-        detailsFilmsDTOResponse.setGenero(film.getGenre());
-        detailsFilmsDTOResponse.setNome(film.getName());
+        detailsFilmsDTOResponse.setGenre(film.getGenre());
+        detailsFilmsDTOResponse.setName(film.getName());
         return detailsFilmsDTOResponse;
     }
 
