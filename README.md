@@ -13,6 +13,7 @@
     401 - Unauthorized
     403 - Forbidden
     404 - Not Find
+    409 - Conflict
     422 - Unprocessable Entity
 
 ## API Structure - Post

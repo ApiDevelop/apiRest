@@ -5,14 +5,14 @@ import com.example.apiRest.model.Films;
 public class DetailsFilmsDTOResponse {
 
     private Long id;
-    private String nome;
-    private String genero;
+    private String name;
+    private String genre;
     private int ano;
 
     public DetailsFilmsDTOResponse(Films film) {
         this.id = film.getId();
-        this.nome = film.getName();
-        this.genero = film.getGenre();
+        this.name = film.getName();
+        this.genre = film.getGenre();
         this.ano = film.getYear();
     }
 
@@ -28,20 +28,20 @@ public class DetailsFilmsDTOResponse {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getGenero() {
-        return genero;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public int getAno() {
