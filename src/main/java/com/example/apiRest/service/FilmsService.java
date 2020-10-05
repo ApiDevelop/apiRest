@@ -48,12 +48,11 @@ public class FilmsService {
 
     public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO) {
         List<Films> films = filmsRepository.findByName(filmsDTO.getName());
-        for (Films film : films) {
-            if (filmsDTO.getName().equalsIgnoreCase(film.getName())) {
+
+       films.forEach ((film) -> {
 
                throw new FilmsRegisteredException("This film already registered");
-            }
-        }
+        });
         return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));
 
     }
