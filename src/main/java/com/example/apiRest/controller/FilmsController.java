@@ -83,7 +83,7 @@ public class FilmsController {
     @PutMapping("/films")
     @ApiOperation(value = "Update data of one film")
     @ResponseStatus(HttpStatus.CREATED)
-    public Films updateFilm(@RequestBody Films film) {
-        return filmsService.updateDataFilm(film);
+    public FilmsDTOResponse updateFilm(@RequestBody @Valid FilmsDTO filmDTO) {
+        return filmsService.updateDataFilm(filmDTO);
     }
 }

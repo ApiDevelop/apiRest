@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 import static convert.ConvertFilms.*;
 
 
@@ -40,18 +41,18 @@ public class FilmsService {
 
     public DetailsFilmsDTOResponse getFilmByID(long id) {
         Films film = filmsRepository.findById(id);
-        if (film == null){
+        if (film == null) {
             throw new NullPointerException("There are no films registered with this ID");
         }
         return converterFilmInFilmDetails(film);
     }
 
     public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO) {
-        List<Films> films = filmsRepository.findByName(filmsDTO.getName());
+        films = filmsRepository.findByName(filmsDTO.getName());
 
-       films.forEach ((film) -> {
+        films.forEach((film) -> {
 
-               throw new FilmsRegisteredException("This film already registered");
+            throw new FilmsRegisteredException("This film already registered");
         });
         return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));
 
@@ -62,8 +63,9 @@ public class FilmsService {
         filmsRepository.delete(film);
     }
 
-    public Films updateDataFilm(Films film) {
-        return filmsRepository.save(film);
+    public FilmsDTOResponse updateDataFilm(FilmsDTO filmsDTO) {
+
+        return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));
     }
 
 }

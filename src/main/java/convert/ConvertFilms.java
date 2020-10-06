@@ -4,6 +4,7 @@ import com.example.apiRest.dto.DetailsFilmsDTOResponse;
 import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.dto.FilmsDTOResponse;
 import com.example.apiRest.model.Films;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,7 @@ public class ConvertFilms {
         return films;
     }
 
-    public static FilmsDTOResponse converterFilmsInfilmsDTOResponse(Films films){
+    public static FilmsDTOResponse converterFilmsInfilmsDTOResponse(Films films) {
         FilmsDTOResponse filmsDTOResponse = new FilmsDTOResponse();
         filmsDTOResponse.setId(films.getId());
         filmsDTOResponse.setName(films.getName());
@@ -37,7 +38,7 @@ public class ConvertFilms {
     public static DetailsFilmsDTOResponse converterFilmInFilmDetails(Films film) {
         DetailsFilmsDTOResponse detailsFilmsDTOResponse = new DetailsFilmsDTOResponse();
         detailsFilmsDTOResponse.setId(film.getId());
-        detailsFilmsDTOResponse.setAno(film.getYear());
+        detailsFilmsDTOResponse.setYear(film.getYear());
         detailsFilmsDTOResponse.setGenre(film.getGenre());
         detailsFilmsDTOResponse.setName(film.getName());
         return detailsFilmsDTOResponse;
