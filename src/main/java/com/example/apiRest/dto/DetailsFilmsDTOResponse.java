@@ -7,13 +7,13 @@ public class DetailsFilmsDTOResponse {
     private Long id;
     private String name;
     private String genre;
-    private int ano;
+    private int year;
 
     public DetailsFilmsDTOResponse(Films film) {
         this.id = film.getId();
         this.name = film.getName();
         this.genre = film.getGenre();
-        this.ano = film.getYear();
+        this.year = film.getYear();
     }
 
     public DetailsFilmsDTOResponse() {
@@ -44,11 +44,11 @@ public class DetailsFilmsDTOResponse {
         this.genre = genre;
     }
 
-    public int getAno() {
-        return ano;
+    public int getYear() {
+        return year;
     }
 
-    public void setAno(int ano) {
-        this.ano = ano;
+    public void setYear(int year) {
+        this.year = year;
     }
 }
