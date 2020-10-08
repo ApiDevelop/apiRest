@@ -47,24 +47,20 @@ public class FilmsService {
         return converterFilmInFilmDetails(film);
     }
 
+
     public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO) {
         films = filmsRepository.findByName(filmsDTO.getName());
-
         films.forEach((film) -> {
-
-            throw new FilmsRegisteredException("This film already registered");
+            throw new FilmsRegisteredException("This is film already registered");
         });
         return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));
-
     }
-
 
     public void deleteFilm(Films film) {
         filmsRepository.delete(film);
     }
 
     public FilmsDTOResponse updateDataFilm(FilmsDTO filmsDTO) {
-
         return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));
     }
 
