@@ -32,7 +32,8 @@ public class FilmsService {
     }
 
     public List<DetailsFilmsDTOResponse> getFilmByName(String nameFilm) {
-        films = filmsRepository.findByName(nameFilm);
+        films = filmsRepository.findByName(nameFilm.toLowerCase());
+        System.out.println(films);
         if (films.isEmpty()) {
             throw new FilmsDoesNotExistException("There are no films that meet this search");
         }
@@ -47,24 +48,20 @@ public class FilmsService {
         return converterFilmInFilmDetails(film);
     }
 
+
     public FilmsDTOResponse createOneFilm(FilmsDTO filmsDTO) {
         films = filmsRepository.findByName(filmsDTO.getName());
-
         films.forEach((film) -> {
-
-            throw new FilmsRegisteredException("This film already registered");
+            throw new FilmsRegisteredException("This is film already registered");
         });
         return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));
-
     }
-
 
     public void deleteFilm(Films film) {
         filmsRepository.delete(film);
     }
 
     public FilmsDTOResponse updateDataFilm(FilmsDTO filmsDTO) {
-
         return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));
     }
 

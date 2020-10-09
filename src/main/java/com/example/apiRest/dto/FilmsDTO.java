@@ -23,7 +23,7 @@ public class FilmsDTO implements Serializable {
 
     @ApiModelProperty(value = "Field is string")
     @NotBlank(message = "Field name can not be blank")
-    @Length(min = 3,max = 50,message = "The field name must have between 3 and 50 character ")
+    @Length(min = 3, max = 50, message = "The field name must have between 3 and 50 character ")
     private String name;
 
     @ApiModelProperty(value = "Field is string")
@@ -51,7 +51,7 @@ public class FilmsDTO implements Serializable {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
     }
 
     public String getGenre() {
@@ -69,10 +69,11 @@ public class FilmsDTO implements Serializable {
     public void setYear(int year) {
         this.year = year;
     }
+
     @Override
     public String toString() {
         return "FilmsDTO [id=" + ", nome=" + name + ", genre=" + genre
-                + ", year=" + year +  "]";
+                + ", year=" + year + "]";
     }
 
 }
