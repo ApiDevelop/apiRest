@@ -32,8 +32,7 @@ public class FilmsService {
     }
 
     public List<DetailsFilmsDTOResponse> getFilmByName(String nameFilm) {
-        films = filmsRepository.findByName(nameFilm.toLowerCase());
-        System.out.println(films);
+        films = filmsRepository.findByNameContaining(nameFilm.toLowerCase());
         if (films.isEmpty()) {
             throw new FilmsDoesNotExistException("There are no films that meet this search");
         }
