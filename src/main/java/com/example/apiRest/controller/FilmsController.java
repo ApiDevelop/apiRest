@@ -73,11 +73,11 @@ public class FilmsController {
 
     }
 
-    @DeleteMapping("/films")
+    @DeleteMapping("/films/{id}")
     @ApiOperation(value = "Delete one film")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOneFilms(@RequestBody Films film) {
-        this.filmsService.deleteFilm(film);
+    public void deleteOneFilms(@PathVariable (value = "id")long id) {
+        this.filmsService.deleteFilm(id);
     }
 
     @PutMapping("/films")
