@@ -1,5 +1,7 @@
 package com.example.apiRest.dto;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 public class LoginDTO {
 
     private String email;
@@ -19,5 +21,9 @@ public class LoginDTO {
 
     public String getPassword() {
         return password;
+    }
+
+    public UsernamePasswordAuthenticationToken convert() {
+        return new UsernamePasswordAuthenticationToken(email, password);
     }
 }
