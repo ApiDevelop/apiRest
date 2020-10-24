@@ -56,8 +56,12 @@ public class FilmsService {
         return converterFilmsInfilmsDTOResponse(filmsRepository.save(converterFilmsDTOInFilms(filmsDTO)));
     }
 
-    public void deleteFilm(Films film) {
-        filmsRepository.delete(film);
+    public void deleteFilm(long id) {
+        Films filmDelete = filmsRepository.findById(id);
+        if (filmDelete == null){
+            throw new NullPointerException("Id not found");
+        }
+        filmsRepository.deleteById(id);
     }
 
     public FilmsDTOResponse updateDataFilm(FilmsDTO filmsDTO) {

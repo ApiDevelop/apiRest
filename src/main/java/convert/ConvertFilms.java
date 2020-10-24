@@ -15,7 +15,6 @@ public class ConvertFilms {
 
     public static Films converterFilmsDTOInFilms(FilmsDTO filmsDTO) {
         Films films = new Films();
-        films.setId(filmsDTO.getId());
         films.setName(filmsDTO.getName());
         films.setGenre(filmsDTO.getGenre());
         films.setYear(filmsDTO.getYear());
