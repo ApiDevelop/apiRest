@@ -1,5 +1,6 @@
 package com.example.apiRest.config;
 
+import com.example.apiRest.model.User;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,33 +14,33 @@ import static springfox.documentation.builders.PathSelectors.regex;
 import java.util.ArrayList;
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
 
     @Bean
-    public Docket productApi() {
+    public Docket filmAPI() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.apiRest"))
                 .paths(regex("/*.*"))
-                .build();
+                .build()
+                .ignoredParameterTypes(User.class);
                 //.apiInfo(metaInfo());
     }
 
-    private ApiInfo metaInfo() {
-
-        ApiInfo apiInfo = new ApiInfo(
-                "Films API Rest",
-                "API for register and control of films.",
-                "1.0",
-                "Terms of Service",
-                new Contact("Os Guri", "https://www.youtube.com/osguri",
-                        "project.api.git@gmail.com"),
-                "Apache License Version 2.0",
-                "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
-        );
-
-        return apiInfo;
-    }
+//    private ApiInfo metaInfo() {
+//
+//        ApiInfo apiInfo = new ApiInfo(
+//                "Films API Rest",
+//                "API for register and control of films.",
+//                "1.0",
+//                "Terms of Service",
+//                new Contact("Os Guri", "https://www.youtube.com/osguri",
+//                        "project.api.git@gmail.com"),
+//                "Apache License Version 2.0",
+//                "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
+//        );
+//
+//        return apiInfo;
+//    }
 
 }
