@@ -1,6 +1,8 @@
 package com.example.apiRest.config;
 
 import com.example.apiRest.model.User;
+import springfox.documentation.builders.ParameterBuilder;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import static springfox.documentation.builders.PathSelectors.regex;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Configuration
 public class SwaggerConfig {
@@ -23,24 +26,31 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.example.apiRest"))
                 .paths(regex("/*.*"))
                 .build()
-                .ignoredParameterTypes(User.class);
-                //.apiInfo(metaInfo());
+                .ignoredParameterTypes(User.class)
+                .globalOperationParameters(Arrays.asList(
+                        new ParameterBuilder()
+                                .name("Authorization")
+                                .description("Header para Token JWT")
+                                .modelRef(new ModelRef("string"))
+                                .parameterType("header")
+                                .required(false)
+                                .build()));
     }
 
-//    private ApiInfo metaInfo() {
-//
-//        ApiInfo apiInfo = new ApiInfo(
-//                "Films API Rest",
-//                "API for register and control of films.",
-//                "1.0",
-//                "Terms of Service",
-//                new Contact("Os Guri", "https://www.youtube.com/osguri",
-//                        "project.api.git@gmail.com"),
-//                "Apache License Version 2.0",
-//                "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
-//        );
-//
-//        return apiInfo;
-//    }
+    private ApiInfo metaInfo() {
+
+        ApiInfo apiInfo = new ApiInfo(
+                "Films API Rest",
+                "API for register and control of films.",
+                "1.0",
+                "Terms of Service",
+                new Contact("Os Guri", "https://www.youtube.com/osguri",
+                        "project.api.git@gmail.com"),
+                "Apache License Version 2.0",
+                "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
+        );
+
+        return apiInfo;
+    }
 
 }
