@@ -44,13 +44,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+        .antMatchers("/h2-console/**").permitAll()
         .antMatchers(HttpMethod.GET, "/api/v1/films").permitAll()
         .antMatchers(HttpMethod.GET, "/api/v1/films/*").permitAll()
         .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
         .antMatchers(HttpMethod.POST, "/auth").permitAll()
+        .antMatchers(HttpMethod.POST, "/api/v1/films").hasRole("ADMIN")
+        .antMatchers(HttpMethod.DELETE, "/api/v1/films/*").hasRole("ADMIN")
+        .antMatchers(HttpMethod.PUT, "/api/v1/films").hasRole("ADMIN")
         .anyRequest().authenticated()
         .and().csrf().disable()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and().headers().frameOptions().sameOrigin()
         .and().addFilterBefore(new AuthenticationViaTokenFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class);
     }
 
