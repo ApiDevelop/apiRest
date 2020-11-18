@@ -3,7 +3,6 @@ package com.example.apiRest.controller;
 import com.example.apiRest.dto.DetailsFilmsDTOResponse;
 import com.example.apiRest.dto.FilmsDTO;
 import com.example.apiRest.dto.FilmsDTOResponse;
-import com.example.apiRest.model.Films;
 import com.example.apiRest.response.Response;
 import com.example.apiRest.service.FilmsService;
 import io.swagger.annotations.Api;
